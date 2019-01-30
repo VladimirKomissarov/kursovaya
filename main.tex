@@ -1,0 +1,99 @@
+\documentclass[russian,utf8,nocolumnxxxi,nocolumnxxxii]{eskdtext}
+\usepackage[T1,T2A]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[english,ukrainian,russian]{babel}
+\usepackage{amssymb,amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{error_estimation_otchet.bib}
+\usepackage[]{hyperref}
+\hypersetup{colorlinks=true}
+\usepackage{textcomp}
+\newcommand{\No}{\textnumero}
+\ESKDdepartment{Федеральное агентство по образованию}
+\ESKDcompany{Санкт-Петербургский государственный электротехнический университет "ЛЭТИ"}
+\ESKDtitle{Пояснительная записка к Курсовой работе}
+\ESKDsignature{Вариант №11}
+\ESKDauthor{Комиссаров В.Р.}
+\ESKDchecker{Прокшин А.Н.}
+\ESKDdocName{по дисциплине "Информатика"}
+\begin{document}
+\maketitle
+\newpage
+    \section{Задача оптимального распределения неоднородных ресурсов}
+    \begin{table}[h]
+        \centering
+     \caption{Условия поставленой задачи}
+\begin{tabular}[c]{|*{6}{c|}}
+\hline
+Исп. рес-ы & Изд_1 & Изд_2 & Изд_3 & Изд_4 & Наличие\\
+\hline
+Труд. & 4 & 4 & 1 & 9 & 18\\
+\hline
+Матер. & 3 & 4 & 5 & 3 & 11\\
+\hline
+Фин. & 6 & 5 & 8 & 4 & 33\\
+\hline
+Прибыль & 50 & 40 & 20 & 30\\
+\hline
+\end{tabular}
+\end{table}
+
+Для нахождения оптимального решения воспользуемся функцией \textit{linpro} пакета \textit{SciLab}, где \textit{"p"} - коэф. при неизвестных целевой $f$, \textit{"C"} - матрица неизвествых системы ограничений, а \textit{"b"} содержит свободные члены (\textit {"ci"} и \textit{"cs"} - соответственно нижняя и верхняя границы переменных).
+
+ \vspace{20pt}
+ 
+Система ограничений выглядит следующим образом.
+\begin{equation*}
+\begin{cases}
+  4x_1+4x_2+1x_3+9x_4 \leqslant 18
+   \\
+  3x_1+4x_2+5x_3+3x_4 \leqslant 11
+   \\
+  6x_1+5x_2+8x_3+4x_4 \leqslant 33
+  \end{cases}
+\end{equation*}
+
+\vspace{20pt}
+
+Составляем выражения:
+
+\vspace{20pt}
+  
+   \textit{f}_{max} = $50x_1+40x_2+20x_3+30x_4$
+   
+   \vspace{20pt}
+   
+   \textit{C}= \begin{pmatrix}
+   4 \ 4 \ 1 \ 9 \\
+   3 \ 4 \ 5 \ 3 \\
+   6 \ 5 \ 8 \ 4 
+   \end{pmatrix}  \textit{b}= \begin{pmatrix}
+   18 \\
+   11 \\
+   33
+   \end{pmatrix} \textit{p}= \begin{pmatrix}
+   50 \\
+   40 \\
+   20 \\
+   30
+   \end{pmatrix}
+   
+   \newpage
+   
+  В итоге были рассчитаны значения, при которых прибыль максимальна:
+  
+  \textit{f_{max}} = 80 
+  
+  \textit{larg} = (0;0;55;25;0;10;0)
+  
+  \textit{x} = (0;1.6;0;0)
+  
+  Ответ: Прибыль максимальна при производстве 1.6 единиц изделия №2.
+
+
+\end{document}
