@@ -1,0 +1,446 @@
+\documentclass[russian,utf8,nocolumnxxxi,nocolumnxxxii]{eskdtext}
+\usepackage[T1,T2A]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage[english,ukrainian,russian]{babel}
+\usepackage{amssymb,amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{error_estimation_otchet.bib}
+\usepackage[]{hyperref}
+\hypersetup{colorlinks=true}
+\usepackage{textcomp}
+\newcommand{\No}{\textnumero}
+\ESKDdepartment{Федеральное агентство по образованию}
+\ESKDcompany{Санкт-Петербургский государственный электротехнический университет "ЛЭТИ"}
+\ESKDtitle{Пояснительная записка к Курсовой работе}
+\ESKDsignature{Вариант №11}
+\ESKDauthor{Комиссаров В.Р.}
+\ESKDchecker{Прокшин А.Н.}
+\ESKDdocName{по дисциплине "Информатика"}
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+
+
+\newpage
+\section{Тема и цель курсовой работы}
+\textbf{Тема курсовой работы}:решение математических задач с использованием математического пакета "Scilab"или "Reduce-algebra".
+
+\textbf{Цель курсовой работы}: уметь применять персональный компьютер и математические пакеты прикладных программ в инженерной деятельности.
+
+
+\textbf{Задание к курсовой работе}:
+\\1.Даны функции $f(x)=\sqrt{3}sin(x)+cos(x)$;$g(x)=cos(2x+\frac{\pi}{3})-1$;
+\\Для них:
+\begin{enumerate}
+    \item[а)]Решить уравнение $f(x)=g(x)$
+    \item[б)]Исследовать функцию $h(x)=f(x)-g(x)$ на промежутке $[0;\frac{5\pi}{6}]$
+\end{enumerate}
+
+\\2.Найти коэффициенты кубического сплайна, интерполирующего данные, представленные в векторах:\\
+$V_{x}=[0;0,75;1,6;2,375;3,75]$,
+$V_{y}=[2,0;1,8;2,325;2,5;3,5]$\\
+Оценить погрешность интерполяции в точке $x=2,4$.Вычислить значение функции в точке $x=1,4$.Построить на графике функции f(x), полученную после нахождения коэффициентов кубического сплайна.\\
+\\3.Решить задачу оптимального распределения неоднородных ресурсов.\\
+Для изготовления $n$ видов изделий $N_1,N_2,...N_n$ необходимы ресурсы $m$ видов: трудовые, материальные, финансовые, и др. Известно требуемое количество $i-$го ресурса, которым предприятие располагает в данный момент, $-a_i$. Известна прибыль $P_i$, получаемая предприятием от изготовления каждого $j-$го изделия. Требуется определить, какие изделия и в каком количестве должны производиться предприятием, чтобы прибыль была максимальной.
+
+\newpage
+\section{Исследование функции}
+
+    \item[a)] а) Решить уравнение f(x)=g(x)
+    
+   Если $\sqrt{3}sin(x)+cos(x)=cos(2x+\frac{\pi}{3})-1$,
+   то:
+   \begin{itemize}
+   \renewcommand{\labelitemi}{$\bullet$}
+       \item $\sqrt{3}sin(x)+cos(x)=0$;
+       
+       $3tg(x)+1=0$;
+       
+       $tg(x)=-\frac{1}{\sqrt{3}}=-\frac{\sqrt{3}}{3}$;
+       
+       \item $cos(2x+\frac{\pi}{3})-1=0$;
+       
+       $2x+\frac{\pi}{3}=arccos 1=0$;
+       
+       $2x=-\frac{\pi}{3}$;
+
+   \end{itemize}
+   
+ Ответ: Функции равны при $x=-\frac{\pi}{6}+\pi k,  k \epsilon Z$
+    
+{\bfб)Исследовать функцию h(x)=f(x)-g(x) на промежутке $[0;\frac{5\pi}{6}]$ }\\
+1) Построение графика иследуемой функции на промежутке $[0;\frac{5\pi}{6}]$ \\
+     $$h(x) = \sqrt{3}sin(x)+cos(x)-cos(2x+\frac{\pi}{3})+1$$
+     
+     
+     \begin{figure}[h]
+      \centering
+      \caption{Функция на промежутке от 0 до $\frac{5\pi}{6}$}
+    
+    
+      \begin{tikzpicture}
+\draw node[below] {$0$};
+\draw[->] (0,-0.1) -- (0,5) node[left] {$Y$};
+\draw[->] (-0.1,0) -- (5,0) node[below] {$X$};
+\draw [domain=0:2.6179938,thick,smooth,black] plot ({\x},{sqrt(3)*sin(\x r)+cos(\x r)-cos((2*\x r)+(pi/3 r))+1});% Параметр r для замены градусов на радианы
+\draw (2.6179938,0) node[below] {$\frac{5\pi}{6}$};
+\draw [dashed]  (0,4) node[left] {4} -- (1.047,4) -- (1.047,0) node[below] {1,047};
+\end{tikzpicture}
+   \end{figure}
+    
+    \begin{enumerate}
+\item[2)]Проверяем функцию на четность или нечетность.\\
+    Для того, чтобы проверить функцию на четность или нечетность подставим $h(-x)$ вместо $h(x)$ и получим:\\
+    $h(-x)=\sqrt{3}sin(-x)+cos(-x)-cos(2(-x)+\frac{\pi}{3})-1=-\sqrt{3}sin(x)+cos(x)-cos(-2x+\frac{\pi}{3})-1$;\\
+    Из ответа следует,что функция поменяла знаки,следовательно, она гарантировано не является четной.\\
+    Чтобы проверить является ли данная функция нечетной, перед получившейся функцией подставим знак минус и получим:\\
+    $h(-x)=-\sqrt{3}sin(x)+cos(x)-cos(-2x+\frac{\pi}{3})-1=-(\sqrt{3}sin(x)-cos(x)+cos(-2x+\frac{\pi}{3})+1)$;\\
+    Из этого следует,что данная функция не является четной и не является нечетной.
+   
+    \item[3)]Находим точки пересечения графика с осями координат.\\
+    Находим нули функции-это точки пересечения графика функции\\
+    $h=f(x)$ с осью абсцисс.\\
+    Находим точку пересечения с осью $Ox$, приравнивая данную функцию к $0$.\\
+    $h(x)=\sqrt{3}sin(x)+cos(x)-cos(2x+\frac{\pi}{3})-1$, при $x=0$\\
+    $h(0)=\sqrt{3}sin(0)+cos(0)-cos(2*0+\frac{\pi}{3})-1=0$\\
+    $x=\frac{5\pi}{6}$, $(\frac{5\pi}{6};0)$\\
+    Находим точку пересечения с осью $Oy$, приравнивая данную функцию к $0$.\\
+    $h(x)=\sqrt{3}sin(x)+cos(x)-cos(2x+\frac{\pi}{3})-1$, при $x=0$\\
+    $h(x)=\sqrt{3}sin(x)+cos(x)-cos(2x+\frac{\pi}{3})-1=0$\\
+    $x=1.5$, $(0;1.5)$\\
+    
+    \begin{figure}[h]
+    \centering
+        \begin{tikzpicture}
+\draw node[below] {$0$};
+\draw[->] (0,-0.1) -- (0,5) node[left] {$Y$};
+\draw[->] (-0.1,0) -- (5,0) node[below] {$X$};
+\draw [domain=0:2.6179938,thick,smooth,black] plot ({\x},{sqrt(3)*sin(\x r)+cos(\x r)-cos((2*\x r)+(pi/3 r))+1});
+\draw (2.6179938,0) node[below] {$\frac{5\pi}{6}$};
+\draw [dashed]  (0,4) node[left] {4} -- (1.047,4) -- (1.047,0) node[below] {1,047};
+        \end{tikzpicture}
+        \caption{График функции на промежутке $[0;\frac{5\pi}{6}]$}
+    \end{figure}
+\newpage
+Определяеям производную от h(x) по x:\\
+\vspace{3mm}
+$H(x)=\frac{dh(x)}{dx}=\sqrt(3)\cdot cos(x) - sin(x) +2\cdot sin(2x+\frac{\pi}{3})$\\
+\vspace{3mm}
+На заданном промежутке уравнения $H(x)=0$ имеет решение при $x=\frac{\pi}{3}$\\
+\vspace{3mm}
+$H(\frac{\pi}{4})=\sqrt{3}\cdot sin(\frac{\pi}{4})- sin(\frac{\pi}{4}+2\cdot sin(2\cdot \frac{\pi}{4} + \frac{\pi}{3}) = \sqrt{3}\cdot \frac{\sqrt2}{2}-\frac{\sqrt{2}}{2}+2sin(\frac{5\pi}{6})\approx 1.518$\\
+\vspace{3mm}
+Так как на участке $[0;\frac{\pi}{3}] H(x) \geqslant 0$, то функция $h(x)$ на этом участке возрастает\\
+\vspace{3mm}
+$H(\frac{\pi}{2})=\sqrt{3}\cdot sin(\frac{\pi}{2})- sin(\frac{\pi}{2}+2\cdot sin(2\cdot \frac{\pi}{2} + \frac{\pi}{3}) = \sqrt{3}-1\approx -2.732$\\
+\vspace{3mm}
+Так как на участке $[\frac{\pi}{3};\frac{5\pi}{6}] H(x) \leqslant 0$, то функция $h(x)$ на этом участке убывает\\
+\vspace{3mm}
+Так происходит смена знака функции $H(x)$, то на заданном промежутке, в точке $x=\frac{\pi}{3}$, будет максимум функции $h(x)$. Максимальное значение функции равно:\\
+\vspace{3mm}
+$h(\frac{\pi}{3})=\sqrt{3}\cdot sin(\frac{\pi}{3})+ cos(\frac{\pi}{3}- cos(2\cdot \frac{\pi}{3} + \frac{\pi}{3}) = \sqrt{3} \cdot \frac{\sqrt{3}}{2}  + \frac{1}{2}- (-1)+1 = 4$\\
+Минимальны значеним функции на заданном участке будет $h(\frac{5\pi}{6}) = 0$\\
+Строим график функцию на заданном промежутке:\\
+\begin{center}
+\begin{tikzpicture}
+\begin{scope}[scale=2]
+\draw[thin, ->] (0,0) -- (5,0) node[right] {$X$};
+\draw[thin, ->] (0,0) -- (0,5) node[left] {$Y$};
+\draw[very thin,color=gray] (0,0) grid[xstep=0.3,ystep=0.3] (4.3,4.3);
+\foreach \x\xtext in {0,1.047,2.618} 
+\draw (\x,0.1) -- (\x,-0.1) node[below] {$\xtext$};
+\foreach \y\ytext in {1.5,3,4} 
+\draw (0.1,\y) -- (-0.1,\y) node[left] {$\ytext$};
+\draw[domain=0:(5*3.14)/6, smooth, blue] plot ({\x},{(sqrt(3)*sin(\x r)+cos(\x r))-(cos(\x*2 r + pi/3 r)-1))});
+\draw[dashed] (1.047,0) -- (1.047,4) ;
+\draw[dashed] (0,4) -- (1.047,4) ;
+\end{scope};
+\end{tikzpicture}
+\end{center}
+Находим точки перегиба и определяем выпуклость/вогнутость функции:\\
+    $h''(x)=-\sqrt{3}sin(x)-cos(x)+4cos(2x+\frac{\pi}{3})=-2sin(x+\frac{\pi}{6})+4cos(2x+\frac{\pi}{3})$\\
+    Приравниваем получившуюся функцию к 0 и получаем:\\
+    $-2sin(x+\frac{\pi}{6})+4cos(2x+\frac{\pi}{3})=0$\\
+    
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}
+        \draw[->] (0,0) -- (0,5) node[left] {$y$};
+        \draw[->] (0,0) -- (5,0) node[below] {$x$};
+        \draw (0,1) node[left] {1};
+        \draw [domain=0:2.6179938,thick,smooth,black] plot ({\x},{-2*sin((\x r)+(pi/6 r))+4*cos((2*\x r)+(pi/3 r))});
+        \draw (0.1113,0) node{\textbullet};
+        \draw (0.1113,0) node[below left] {0,1113};
+        \draw[dashed] (1.047,-6) -- (1.047,0) node[above] {$\frac{\pi}{3}$};
+        \draw[dashed] (2.6179938,4) -- (2.6179938,0) node[below] {$\frac{5\pi}{6}$};
+        \end{tikzpicture}
+        \caption{Вторая производная на промежутке $[0;\frac{5\pi}{6}]$}
+       \end{figure}
+  \end{enumerate}
+
+\newpage
+\usepackage{ На получившемся графике видно, что на интервале $(0.1113,1.983)$ вторая производная отрицательная,следовательно,на интервале\\ $(0.1113,1.983)$ функция выпуклая, а на остальных двух промежутках функция вогнута. }
+\newpage
+\section{Исследование кубического сплайна}
+
+Сплайн представляет собой функцию, проходящую через жёстко заданные точки таким образом, чтобы потенциальная энергия изгибов принимала минимальное значение. Данный эффект достигается нахождением четвёртой производной данной функции, которая принемает значение 0. Исходя из этого сплайн можно представить как полином третьей степени на каждом отрезке $(xi,x_{i+1})$.
+
+Заданы точки:
+\begin{enumerate}[I]
+    \item (0,2)
+    \item (0.75,1.8)
+    \item (1.6,2.325)
+    \item (2.375,2.5)
+    \item (3.75,3.5)
+\end{enumerate}
+
+Составим 8 уравнений функций:
+\begin{center}
+
+$f_1(I)=A_{10}+A_{11}I+A_{12}I^2+A_{13}I^3$
+
+$f_1(II)=A_{10}+A_{11}II+A_{12}II^2+A_{13}II^3$
+
+$f_2(II)=A_{20}+A_{21}II+A_{22}II^2+A_{23}II^3$
+
+$f_2(III)=A_{20}+A_{21}III+A_{22}III^2+A_{23}III^3$
+
+$f_3(III)=A_{30}+A_{31}III+A_{32}III^2+A_{33}III^3$
+
+$f_3(IV)=A_{30}+A_{31}IV+A_{32}IV^2+A_{33}IV^3$
+
+$f_4(IV)=A_{40}+A_{41}IV+A_{42}IV^2+A_{43}IV^3$
+
+$f_4(V)=A_{40}+A_{41}V+A_{42}V^2+A_{43}V^3$
+
+\end{center}
+
+3 уравнения $f'$ в точках склейки:
+
+\begin{center}
+    
+$A_{11}+2A_{12}II+3A_{13}II^2=A_{21}+2A_{22}II+3A_{23}II^2$
+
+$A_{21}+2A_{22}III+3A_{23}III^2=A_{31}+2A_{32}III+3A_{33}III^2$
+
+$A_{31}+2A_{32}IV+3A_{33}IV^2=A_{41}+2A_{42}IV+3A_{43}IV^2$
+    
+\end{center}
+
+3 уравнения $f''$ в точках склейки:
+\begin{center}
+
+$2A_{12}+6A_{13}II=2A_{22}+6A_{23}II$
+
+$2A_{22}+6A_{23}III=2A_{32}+6A_{33}III$
+
+$2A_{32}+6A_{33}IV=2A_{42}+6A_{43}IV$
+
+\end{center}
+
+И, наконец, $f''=0$ в крайних точках (для свободных концов)
+\begin{center}
+
+$2A_{12}+6A_{13}I=0$
+
+$2A_{42}+6A_{43}V=0$
+
+\end{center}
+
+Из получившихся 16 уравнений составим матрицу:
+
+\makeatletter
+\renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols #1}}
+\makeatother
+
+\resizebox{13cm}{!}{\begin{pmatrix}[0.0001cm]
+$1& I& I^2& I^3& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$1& II& II^2& III& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 1& 2II& 3II^2& 0& -1& -2II& -3II^2& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 0& 2& 6II& 0& 0& -2& -6II& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 1& II& II^2& II^3& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 1& III& III^2& III^3& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 1& 2III& 3III^2& 0& -1& -2III& -3III^2& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 0& 2& 6III& 0& 0& -2& -6III& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 1& III& III^2& III^3& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 1& IV& IV^2& IV^3& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 0& 1& 2IV& 3IV^2& 0& -1& -2IV& -3IV^2 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 2& 6IV& 0& 0& -2& -6IV $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 1& IV& IV^2& IV^3 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 1& V& V^2& V^3 $\\
+$0& 0& 2& 6I& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0 $\\
+$0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 0& 2& 6V $
+\end{pmatrix}}*\resizebox{1.14cm}{!}{\begin{pmatrix}
+$A_{10}$ \\
+$A_{11}$ \\
+$A_{12}$ \\
+$A_{13}$ \\
+$A_{20}$ \\
+$A_{21}$ \\
+$A_{22}$ \\
+$A_{23}$ \\
+$A_{30}$ \\
+$A_{31}$ \\
+$A_{32}$ \\
+$A_{33}$ \\
+$A_{40}$ \\
+$A_{41}$ \\
+$A_{42}$ \\
+$A_{43}$ 
+\end{pmatrix}}=\resizebox{1.06cm}{!}{\begin{pmatrix}
+I \\
+II \\
+0 \\
+0 \\
+II \\
+III \\
+0 \\
+0 \\
+III \\
+IV \\
+0 \\
+0 \\
+IV \\
+V \\
+0 \\
+0
+\end{pmatrix}}
+
+Её решение представляется данной матрицой-вектором:
+\resizebox{1.7cm}{!}{\begin{pmatrix}
+2\\
+-0.5235\\
+0\\
+0.4565\\
+2.4859\\
+-2.4671\\
+2.5915\\
+-0.6953\\
+-2.5291\\
+6.936\\
+-3.2854\\
+0.5291\\
+6.1315\\
+-4.0036\\
+1.3208\\
+-0.1174
+\end{pmatrix}}\\
+\newpage
+    \centering
+Уравнения для сплайна:
+\begin{cases}
+  $f_1(x)=0,4565x^3-0,5235x+6$\\
+$f_2(x)=-0,6935x^3+2,5915x^2-2,4671x+2,4859$\\
+$f_3(x)=0,5235^3-3,2854x^2+6,936x-2,5291$\\
+$f_4(x)=-0.1174^3+1,3208^2-4,0036x+6,1315$\\
+\end{cases}
+\\
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[xscale=4.5]
+    \draw[<->] (0,7.0) node[left] {$y$} -- (0,0) node[below] {$0$} -- (3.5,0) node[below] {$x$};
+    \draw[domain=0:0.5,smooth, black] plot ({\x},{(0.4565*((\x)*(\x)*(\x)))-(0.5235*(\x))+2});
+    \draw[domain=0.5:1.4,smooth,green] plot ({\x},{(-0.6935*((\x)*(\x)*(\x)))+(2.5915*((\x)*(\x)))-(2.4671*(\x))+2.4859});
+    \draw[domain=1.4:2.25,smooth, blue] plot ({\x},{(0.5325*((\x)*(\x)*(\x)))-(3.2854*((\x)*(\x)))+(6.936*(\x))-2.5291});
+    
+    \draw[domain=2.25:3.5,smooth, red] plot ({\x},{(-0.1174*((\x)*(\x)*(\x)))+(1.3208*((\x)*(\x)))-(4.0036*(\x))+6.1315});
+   \draw (0,2) node{\textbullet} node[left] {(0,2)};
+    \draw (0.5,1.8) node{\textbullet} node[below] {(0.5,1.8)};
+    \draw (1.4,2.2) node{\textbullet} node[above] {(1.4,2.2)};
+    \draw (2.25,2.48) node{\textbullet} node[below left] {(2.25,2.48)};
+    \draw (3.5,3.25) node{\textbullet} node[above] {(3.5,3.25)};
+    \draw [thin] (0,2) -- (0,2); 
+    \draw [thin] (3.5,3.25) -- (3.5,3.25); 
+    \end{tikzpicture}
+    \caption{Сплайн}
+\end{figure}
+
+
+
+
+    
+\newpage
+    \section{Задача оптимального распределения неоднородных ресурсов}
+    \begin{table}[h]
+        \centering
+     \caption{Условия поставленой задачи}
+\begin{tabular}[c]{|*{6}{c|}}
+\hline
+Исп. рес-ы & Изд_1 & Изд_2 & Изд_3 & Изд_4 & Наличие\\
+\hline
+Труд. & 4 & 4 & 1 & 9 & 18\\
+\hline
+Матер. & 3 & 4 & 5 & 3 & 11\\
+\hline
+Фин. & 6 & 5 & 8 & 4 & 33\\
+\hline
+Прибыль & 50 & 40 & 20 & 30\\
+\hline
+\end{tabular}
+\end{table}
+
+Для нахождения оптимального решения воспользуемся функцией \textit{linpro} пакета \textit{SciLab}, где \textit{"p"} - коэф. при неизвестных целевой $f$, \textit{"C"} - матрица неизвествых системы ограничений, а \textit{"b"} содержит свободные члены (\textit {"ci"} и \textit{"cs"} - соответственно нижняя и верхняя границы переменных).
+
+ \vspace{20pt}
+ 
+Система ограничений выглядит следующим образом.
+\begin{equation*}
+\begin{cases}
+  4x_1+4x_2+1x_3+9x_4 \leqslant 18
+   \\
+  3x_1+4x_2+5x_3+3x_4 \leqslant 11
+   \\
+  6x_1+5x_2+8x_3+4x_4 \leqslant 33
+  \end{cases}
+\end{equation*}
+
+\vspace{20pt}
+
+Составляем выражения:
+
+\vspace{20pt}
+  
+   \textit{f} {max} = $50x_1+40x_2+20x_3+30x_4$
+   
+   \vspace{20pt}
+   
+   \textit{C}= \begin{pmatrix}
+   4 \ 4 \ 1 \ 9 \\
+   3 \ 4 \ 5 \ 3 \\
+   6 \ 5 \ 8 \ 4 
+   \end{pmatrix}  \textit{b}= \begin{pmatrix}
+   18 \\
+   11 \\
+   33
+   \end{pmatrix} \textit{p}= \begin{pmatrix}
+   50 \\
+   40 \\
+   20 \\
+   30
+   \end{pmatrix}
+   
+   \newpage
+   
+  В итоге были рассчитаны значения, при которых прибыль максимальна:
+  
+  \textit{f_{max}} = 80 
+  
+  \textit{larg} = (0;0;55;25;0;10;0)
+  
+  \textit{x} = (0;1.6;0;0)
+  
+  Ответ: Прибыль максимальна при производстве 1.6 единиц изделия №2.
+
+
+\end{document}
